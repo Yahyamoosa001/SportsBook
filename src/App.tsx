@@ -9,15 +9,20 @@ import Layout from "@/components/layout/Layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 // Import pages
+import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import VerifyOtp from "./pages/auth/VerifyOtp";
 import Venues from "./pages/public/Venues";
 import VenueDetails from "./pages/public/VenueDetails";
+import Sports from "./pages/public/Sports";
+import About from "./pages/public/About";
 import Booking from "./pages/user/Booking";
+import EnhancedBooking from "./pages/user/EnhancedBooking";
 import UserDashboard from "./pages/user/Dashboard";
 import MyBookings from "./pages/user/MyBookings";
+import EnhancedMyBookings from "./pages/user/EnhancedMyBookings";
 import Profile from "./pages/user/Profile";
 import OwnerDashboard from "./pages/owner/Dashboard";
 import OwnerFacilities from "./pages/owner/Facilities";
@@ -42,10 +47,13 @@ const App = () => (
           <Layout>
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-otp" element={<VerifyOtp />} />
+              <Route path="/sports" element={<Sports />} />
+              <Route path="/about" element={<About />} />
               <Route path="/venues" element={<Venues />} />
               <Route path="/venues/:id" element={<VenueDetails />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
@@ -53,7 +61,7 @@ const App = () => (
               {/* User Routes */}
               <Route path="/booking/:facilityId" element={
                 <ProtectedRoute requiredRole="user">
-                  <Booking />
+                  <EnhancedBooking />
                 </ProtectedRoute>
               } />
               <Route path="/user/dashboard" element={
@@ -63,7 +71,7 @@ const App = () => (
               } />
               <Route path="/user/bookings" element={
                 <ProtectedRoute requiredRole="user">
-                  <MyBookings />
+                  <EnhancedMyBookings />
                 </ProtectedRoute>
               } />
               <Route path="/profile" element={

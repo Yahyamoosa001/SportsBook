@@ -43,18 +43,10 @@ router.put('/facilities/:id/approve', async (req, res) => {
 
 router.get('/users', async (_req, res) => {
   try {
-    const users = await User.find({}).sort({ createdAt: -1 });
-    const mapped = users.map((u) => ({
-      _id: String(u._id),
-      name: u.name,
-      email: u.email,
-      role: u.role,
-      isVerified: u.isVerified,
-      isActive: u.isActive,
-      createdAt: u.createdAt,
-      updatedAt: u.updatedAt,
-    }));
-    res.json({ success: true, data: mapped });
+    const users = await User.find({})
+      .select('-passwordHash')
+      .sort({ createdAt: -1 });
+    res.json({ success: true, data: users });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -62,9 +54,18 @@ router.get('/users', async (_req, res) => {
 
 router.put('/users/:id/status', async (req, res) => {
   try {
-    const updated = await User.findByIdAndUpdate(req.params.id, { isActive: req.body.isActive }, { new: true });
-    if (!updated) return res.status(404).json({ success: false, message: 'Not found' });
-    res.json({ success: true, data: null });
+    const { isActive } = req.body;
+    const updated = await User.findByIdAndUpdate(
+      req.params.id,
+      { isActive },
+      { new: true }
+    ).select('-passwordHash');
+    
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    
+    res.json({ success: true, data: updated });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

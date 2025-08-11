@@ -6,24 +6,30 @@ import { DashboardStats, Facility } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Building, Calendar, CreditCard, Users, AlertCircle } from 'lucide-react';
+import { Building, Calendar, CreditCard, Users, AlertCircle, BarChart3, PieChart } from 'lucide-react';
 import { toast } from 'sonner';
+import SportsDistributionChart from '@/components/charts/SportsDistributionChart';
+import BookingTrendsChart from '@/components/charts/BookingTrendsChart';
+import RecentBookings from '@/components/shared/RecentBookings';
 
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [pendingFacilities, setPendingFacilities] = useState<Facility[]>([]);
+  const [sportsDistribution, setSportsDistribution] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
-        const [statsData, pendingData] = await Promise.all([
+        const [statsData, pendingData, sportsData] = await Promise.all([
           dashboardApi.getAdminStats(),
-          dashboardApi.getPendingFacilities()
+          dashboardApi.getPendingFacilities(),
+          dashboardApi.getSportsDistribution()
         ]);
         
         setStats(statsData);
         setPendingFacilities(pendingData);
+        setSportsDistribution(sportsData);
       } catch (error) {
         console.error('Error loading dashboard data:', error);
       } finally {

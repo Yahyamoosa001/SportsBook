@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { connectToDatabase } from './lib/db.js';
 import authRoutes from './routes/auth.js';
+import authV2Routes from './routes/authV2.js';
 import facilitiesRoutes from './routes/facilities.js';
 import bookingsRoutes from './routes/bookings.js';
 import availabilityRoutes from './routes/availability.js';
@@ -15,9 +16,32 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 3001;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:8080';
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:8081';
 
-app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
+// Allow multiple origins for development
+const allowedOrigins = [
+  'http://localhost:8080',
+  'http://localhost:8081',
+  'http://localhost:8082',  // Added for current frontend port
+  'http://localhost:3000',
+  'http://localhost:5173',
+  CLIENT_ORIGIN
+];
+
+app.use(cors({ 
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true 
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -26,6 +50,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/auth/v2', authV2Routes);
 app.use('/api', facilitiesRoutes);
 app.use('/api', bookingsRoutes);
 app.use('/api', availabilityRoutes);

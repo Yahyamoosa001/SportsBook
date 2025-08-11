@@ -52,6 +52,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('token', response.token);
       setUser(response.user);
       toast.success('Login successful!');
+      
+      // Redirect based on user role
+      setTimeout(() => {
+        switch (response.user.role) {
+          case 'admin':
+            window.location.href = '/admin/dashboard';
+            break;
+          case 'facility_owner':
+            window.location.href = '/owner/dashboard';
+            break;
+          case 'user':
+          default:
+            window.location.href = '/venues';
+            break;
+        }
+      }, 1000);
     } catch (error: any) {
       toast.error(error.message || 'Login failed');
       throw error;
@@ -74,6 +90,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('token', response.token);
       setUser(response.user);
       toast.success('Email verified successfully!');
+      
+      // Redirect based on user role after verification
+      setTimeout(() => {
+        switch (response.user.role) {
+          case 'admin':
+            window.location.href = '/admin/dashboard';
+            break;
+          case 'facility_owner':
+            window.location.href = '/owner/dashboard';
+            break;
+          case 'user':
+          default:
+            window.location.href = '/venues';
+            break;
+        }
+      }, 1000);
     } catch (error: any) {
       toast.error(error.message || 'OTP verification failed');
       throw error;

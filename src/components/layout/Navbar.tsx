@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContextV2';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -84,10 +84,10 @@ const Navbar: React.FC = () => {
           ) : (
             <div className="flex items-center space-x-2">
               <Button asChild variant="ghost" size="sm">
-                <Link to="/login">Login</Link>
+                <Link to="/login-v2">Login</Link>
               </Button>
               <Button asChild size="sm">
-                <Link to="/register">Sign Up</Link>
+                <Link to="/register-v2">Sign Up</Link>
               </Button>
             </div>
           )}
