@@ -21,6 +21,8 @@ import MyBookings from "./pages/user/MyBookings";
 import Profile from "./pages/user/Profile";
 import OwnerDashboard from "./pages/owner/Dashboard";
 import OwnerFacilities from "./pages/owner/Facilities";
+import AddFacility from "./pages/owner/AddFacility";
+import Courts from "./pages/owner/Courts";
 import OwnerBookings from "./pages/owner/Bookings";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminFacilities from "./pages/admin/Facilities";
@@ -79,6 +81,16 @@ const App = () => (
               <Route path="/owner/facilities" element={
                 <ProtectedRoute requiredRole="facility_owner">
                   <OwnerFacilities />
+                </ProtectedRoute>
+              } />
+              <Route path="/owner/facilities/new" element={
+                <ProtectedRoute requiredRole="facility_owner">
+                  <AddFacility />
+                </ProtectedRoute>
+              } />
+              <Route path="/owner/facilities/:facilityId/courts" element={
+                <ProtectedRoute requiredRole="facility_owner">
+                  <Courts />
                 </ProtectedRoute>
               } />
               <Route path="/owner/bookings" element={

@@ -6,7 +6,7 @@ import { Facility } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Edit, Eye, MapPin, Star } from 'lucide-react';
+import { Edit, Eye, MapPin, Star, Settings } from 'lucide-react';
 import { toast } from 'sonner';
 
 const OwnerFacilities: React.FC = () => {
@@ -16,7 +16,10 @@ const OwnerFacilities: React.FC = () => {
   useEffect(() => {
     const loadFacilities = async () => {
       try {
+        console.log('Loading owner facilities...');
         const data = await facilitiesApi.getOwnerFacilities();
+        console.log('Received facilities data:', data);
+        console.log('Setting facilities state with:', data.length, 'facilities');
         setFacilities(data);
       } catch (error) {
         console.error('Error loading facilities:', error);
@@ -50,6 +53,9 @@ const OwnerFacilities: React.FC = () => {
       </div>
     );
   }
+
+  console.log('Rendering with facilities:', facilities.length, 'facilities');
+  console.log('Facilities array:', facilities);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -123,6 +129,12 @@ const OwnerFacilities: React.FC = () => {
                     <Link to={`/venues/${facility._id}`}>
                       <Eye className="h-4 w-4 mr-1" />
                       View
+                    </Link>
+                  </Button>
+                  <Button asChild size="sm" variant="outline" className="flex-1">
+                    <Link to={`/owner/facilities/${facility._id}/courts`}>
+                      <Settings className="h-4 w-4 mr-1" />
+                      Courts
                     </Link>
                   </Button>
                   <Button asChild size="sm" className="flex-1">

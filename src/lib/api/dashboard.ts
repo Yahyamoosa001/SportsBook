@@ -13,8 +13,18 @@ export const dashboardApi = {
     return response.data.data;
   },
 
+  async getOwnerBookingTrends(): Promise<Array<{date: string; bookings: number}>> {
+    const response = await apiClient.get<ApiResponse<Array<{date: string; bookings: number}>>>('/owner/booking-trends');
+    return response.data.data;
+  },
+
   async getAdminStats(): Promise<DashboardStats> {
     const response = await apiClient.get<ApiResponse<DashboardStats>>('/admin/dashboard');
+    return response.data.data;
+  },
+
+  async getSportsDistribution(): Promise<Array<{sport: string; bookings: number}>> {
+    const response = await apiClient.get<ApiResponse<Array<{sport: string; bookings: number}>>>('/admin/sports-distribution');
     return response.data.data;
   },
 

@@ -57,4 +57,8 @@ export const facilitiesApi = {
     const response = await apiClient.put<ApiResponse<Court>>(`/owner/courts/${courtId}`, data);
     return response.data.data;
   },
+
+  async deleteCourt(courtId: string): Promise<void> {
+    await apiClient.delete(`/owner/courts/${courtId}`);
+  },
 };

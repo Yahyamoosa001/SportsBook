@@ -63,10 +63,15 @@ const VerifyOtp: React.FC = () => {
 
           {/* Description */}
           <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-2">
               We've sent a code to your email:{' '}
               <span className="text-foreground font-medium">{email}</span>
             </p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+              <p className="text-sm text-blue-700">
+                <strong>Development Mode:</strong> Use <code className="bg-blue-100 px-1 rounded">123456</code> as the OTP code
+              </p>
+            </div>
           </div>
 
           {/* OTP Form */}
