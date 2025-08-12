@@ -11,7 +11,7 @@ It allows:
 - **Admins** to oversee and manage the entire system
 
 📂 **Project Resources**  
-[Google Drive Link]()
+[Google Drive Link](https://drive.google.com/drive/folders/1_278LJ2tyODST70UDIHCL_RiRKYyFM4F?usp=drive_link)
 
 ---
 
