@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
 
-import { Carousel, Footer } from "@components/common";
-
-import banner1 from "/banner-1.png";
-import banner2 from "/banner-2.jpeg";
-import banner3 from "/banner-3.jpeg";
+import { Footer } from "@components/common";
 
 const Home = () => {
-  const slides = [banner1, banner2, banner3];
 
   return (
     <div className="  bg-base-100 text-base-content">
       <div className="hero min-h-[82vh] bg-base-200 ">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="w-full lg:w-1/2">
-            <Carousel slides={slides} />
+            <img
+              src="/sports-facility.jpg"
+              alt="NORD Architects Multi Sports Complex"
+              className="w-full h-[400px] object-cover rounded-lg"
+            />
           </div>
           <div className="w-full lg:w-1/2">
             <h1 className="text-5xl font-bold">Welcome to Sportbook</h1>
