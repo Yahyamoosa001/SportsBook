@@ -38,10 +38,6 @@ It allows:
 - **Transaction Overview** – View monthly transaction analytics.
 
 
-## 🔐 **Demo Admin Credentials**
-Email: admin@gmail.com
-Password: rijo.com
----
 **.env File**
 PORT=your_port
 MONGO_URI=your_mongo_uri
